@@ -1,5 +1,5 @@
 const express=require('express');
-const { route } = require('./router/routes');
+const route  = require('./router/routes');
 const app=express()
 const mongoose=require('mongoose')
 const Port=3000;
@@ -8,8 +8,9 @@ dotenv.config()
 
 //inbuilt-middleware 
 app.use(express.json())
-app.use(route)
+app.use("/v1",route)
 
+//connection to db
 mongoose.connect(process.env.MONOGODB_URL)
  const db=mongoose.connection
  db.on('error',()=>{
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONOGODB_URL)
  db.once('open',()=>{
     console.log('connected to database')
  })
+
 //connection to server
 app.listen(Port,()=>{
     console.log(`server started on ${Port}`)
