@@ -77,12 +77,14 @@ exports.listUser=async(req,res)=>{
      if(!verifyPassword){
       return res.json({message:"wrong credentials"})
      }
-     const token=generateToken({email:user.email,role:user.role})
+     const token= await generateToken({email:user.email,role:user.role})
      console.log(token);
      
      return  res.json({message:"login successfully",token})
     }
     catch(err){
+      console.log(err)
       return res.json({message:err})
+      
     }
   }
